@@ -6,6 +6,11 @@ export default class TheatersController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             let theTheater: Theater = await Theater.findOrFail(params.id)
+            await theTheater.load("screenings", query=>{
+                query.preload("movie")
+            })
+            await theTheater.load("projector")
+            await theTheater.load("seats")
             return theTheater;
         } else {
             const data = request.all()

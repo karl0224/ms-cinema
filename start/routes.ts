@@ -26,3 +26,6 @@ Route.get('/', async () => {
 
 import "./routes/theaters"
 import "./routes/projectors"
+import "./routes/movies"
+import "./routes/screenings"
+import "./routes/seats"
