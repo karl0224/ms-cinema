@@ -41,7 +41,16 @@ export default class TheatersController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theTheater: Theater = await Theater.findOrFail(params.id);
+        await theTheater.load("projector")
+        if(theTheater["projector"]== null){
             response.status(204);
             return await theTheater.delete();
+        }else{
+            //response.status(409);
+           return{ 
+            "alert":" no se puede eliminar"
+           }
+        }
+           
     }
 }

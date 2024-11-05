@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Movie from 'App/Models/Movie';
+import MovieValidator from 'App/Validators/MovieValidator';
 
 export default class MoviesController {
     public async find({ request, params }: HttpContextContract) {
@@ -20,9 +21,11 @@ export default class MoviesController {
 
     }
     public async create({ request }: HttpContextContract) {
+        await request.validate(MovieValidator)
         const body = request.body();
         const theMovie: Movie = await Movie.create(body);
         return theMovie;
+
     }
 
     public async update({ params, request }: HttpContextContract) {
